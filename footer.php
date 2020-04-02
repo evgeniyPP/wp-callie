@@ -1,13 +1,7 @@
 <footer id="footer">
     <!-- container -->
     <div class="container">
-        <!-- row -->
-        <?php if (is_active_sidebar('sidebar-bottom')) : ?>
-            <div class="row">
-                <?php dynamic_sidebar('sidebar-bottom'); ?>
-            </div>
-        <?php endif; ?>
-        <!-- /row -->
+        <?php get_sidebar('bottom'); ?>
 
         <!-- row -->
         <div class="footer-bottom row">
