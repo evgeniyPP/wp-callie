@@ -71,4 +71,7 @@ add_action('widgets_init', function () {
         'after_widget' => "</div>\n",
         'class' => ''
     ]);
+
+    unregister_widget('WP_Widget_Recent_Posts');
+    register_widget('Callie_Widget_Recent_Posts');
 });
