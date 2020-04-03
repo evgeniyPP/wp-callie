@@ -76,3 +76,71 @@ add_action('widgets_init', function () {
     unregister_widget('WP_Widget_Recent_Posts');
     register_widget('Callie_Widget_Recent_Posts');
 });
+
+
+add_action('init', function () {
+    register_post_type('reviews', [
+        'labels' => array(
+            'name'               => 'Отзывы',
+            'singular_name'      => 'Отзыв',
+            'add_new'            => 'Добавить новый',
+            'add_new_item'       => 'Добавление отзыва',
+            'edit_item'          => 'Редактирование отзыва',
+            'new_item'           => 'Новый отзыв',
+            'view_item'          => 'Смотреть отзыв',
+            'search_items'       => 'Искать отзыв',
+            'not_found'          => 'Не найдено',
+            'not_found_in_trash' => 'Не найдено в корзине',
+            'parent_item_colon'  => '',
+            'menu_name'          => 'Отзывы',
+        ),
+        'description'         => '',
+        'public'              => true,
+        'menu_position'       => 25,
+        'menu_icon'           => 'dashicons-format-quote',
+        'hierarchical'        => false,
+        'supports'            => ['title', 'editor'],
+        // 'title','editor','author','thumbnail','excerpt','trackbacks','custom-fields','comments','revisions','page-attributes','post-formats'
+    ]);
+});
+
+function callie_get_reviews($cnt = -1)
+{
+    return get_posts([
+        'numberposts' => $cnt,
+        'orderby' => 'date',
+        'order' => 'DESC',
+        'post_type' => 'reviews'
+    ]);
+}
+
+add_shortcode('callie_reviews', function ($atts) {
+    $atts = shortcode_atts([
+        'cnt' => 5
+    ], $atts);
+
+    $layout = '';
+
+    $reviews = callie_get_reviews($atts['cnt']);
+
+    foreach ($reviews as $review) {
+
+        $layout .=
+            "<blockquote class=\"blockquote\">
+                <p>{$review->post_content}</p>
+                <footer class=\"blockquote-footer\">{$review->post_title}</footer>
+             </blockquote>";
+    }
+
+    return $layout;
+});
+
+add_shortcode('callie_single_review', function ($atts) {
+    $review = get_post($atts['id']);
+
+    return
+        "<blockquote class=\"blockquote\">
+            <p>{$review->post_content}</p>
+            <footer class=\"blockquote-footer\">{$review->post_title}</footer>
+        </blockquote>";
+});
