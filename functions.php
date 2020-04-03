@@ -2,6 +2,7 @@
 
 include_once(__DIR__ . '/widgets/callie-recent-posts.php');
 include_once(__DIR__ . '/widgets/callie-social-media.php');
+include_once(__DIR__ . '/widgets/callie-newsletter-form.php');
 
 add_filter('show_admin_bar', '__return_false');
 
@@ -75,9 +76,10 @@ add_action('widgets_init', function () {
     ]);
 
     unregister_widget('WP_Widget_Recent_Posts');
-    register_widget('Callie_Widget_Recent_Posts');
 
+    register_widget('Callie_Widget_Recent_Posts');
     register_widget('Callie_Widget_Social_Media');
+    register_widget('Callie_Newsletter_Form');
 });
 
 
