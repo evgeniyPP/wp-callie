@@ -15,7 +15,7 @@
     <![endif]-->
 </head>
 
-<body>
+<body <?php echo body_class(); ?>>
     <header id="header">
         <div id="nav">
             <!-- Top Nav -->

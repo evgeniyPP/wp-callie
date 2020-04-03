@@ -49,6 +49,7 @@ add_action('after_setup_theme', function () {
     register_nav_menu('top', 'Верхнее меню');
     register_nav_menu('aside', 'Выдвижное меню');
     register_nav_menu('bottom', 'Меню в подвале');
+    register_nav_menu('landing', 'Меню для лендинг-страницы');
 
     add_theme_support('post-thumbnails');
     add_theme_support('title-tag');
