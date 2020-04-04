@@ -1,6 +1,6 @@
 <?php
 
-class Callie_Newsletter_Form extends WP_Widget
+class Callie_Widget_Newsletter_Form extends WP_Widget
 {
     public function __construct()
     {

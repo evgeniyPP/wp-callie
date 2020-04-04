@@ -52,14 +52,14 @@
                         <? if (get_previous_post()) : ?>
                             <div class="prev-post">
                                 <?php previous_post_link('<strong>%link</strong>'); ?>
-                                <p>Previous post</p>
+                                <p>Предыдущий пост</p>
                             </div>
                         <? endif; ?>
 
                         <? if (get_next_post()) : ?>
                             <div class="next-post">
                                 <?php next_post_link('<strong>%link</strong>'); ?>
-                                <p>Next post</p>
+                                <p>Следующий пост</p>
                             </div>
                         <? endif; ?>
                     </div>
