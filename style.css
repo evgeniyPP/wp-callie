@@ -1560,3 +1560,15 @@ footer .widget .contact li i {
     margin-left: 0px;
   }
 }
+
+/*=========================================================
+	  JOBS
+===========================================================*/
+
+.jobs-company {
+  font-weight: normal;
+}
+
+.jobs-single-header {
+  padding-top: 40px;
+}

@@ -76,6 +76,23 @@ add_action('widgets_init', function () {
         'class' => ''
     ]);
 
+    register_sidebar([
+        'name' => 'Сайдбар в Вакансиях (сбоку)',
+        'id' => 'sidebar-jobs-aside',
+        'description' => 'Сайдбар в Вакансиях сбоку',
+        'before_widget' => '<div class="widget %2$s">',
+        'after_widget' => "</div>\n"
+    ]);
+
+    register_sidebar([
+        'name' => 'Сайдбар в Вакансиях (подвал)',
+        'id' => 'sidebar-jobs-bottom',
+        'description' => 'Сайдбар в Вакансиях в подвале',
+        'before_widget' => '<div class="widget col-md-3 %2$s">',
+        'after_widget' => "</div>\n",
+        'class' => ''
+    ]);
+
     unregister_widget('WP_Widget_Recent_Posts');
     unregister_widget('WP_Widget_Categories');
 
@@ -109,6 +126,49 @@ add_action('init', function () {
         'hierarchical'        => false,
         'supports'            => ['title', 'editor'],
         // 'title','editor','author','thumbnail','excerpt','trackbacks','custom-fields','comments','revisions','page-attributes','post-formats'
+    ]);
+
+    register_post_type('jobs', [
+        'labels' => array(
+            'name'               => 'Вакансии',
+            'singular_name'      => 'Вакансия',
+            'add_new'            => 'Добавить новую',
+            'add_new_item'       => 'Добавление вакансии',
+            'edit_item'          => 'Редактирование вакансии',
+            'new_item'           => 'Новая вакансия',
+            'view_item'          => 'Смотреть вакансию',
+            'search_items'       => 'Искать вакансию',
+            'not_found'          => 'Не найдено',
+            'not_found_in_trash' => 'Не найдено в корзине',
+            'parent_item_colon'  => '',
+            'menu_name'          => 'Вакансии',
+        ),
+        'description'         => '',
+        'public'              => true,
+        'menu_position'       => 25,
+        'menu_icon'           => 'dashicons-hammer',
+        'hierarchical'        => false,
+        'supports'            => ['title', 'editor', 'thumbnail'],
+        'has_archive'         => true
+        // 'title','editor','author','thumbnail','excerpt','trackbacks','custom-fields','comments','revisions','page-attributes','post-formats'
+    ]);
+
+    register_taxonomy('city', ['jobs'], [
+        'labels'                => [
+            'name'              => 'Города',
+            'singular_name'     => 'Город',
+            'search_items'      => 'Найти город',
+            'all_items'         => 'Все города',
+            'view_item '        => 'Посмотреть город',
+            'edit_item'         => 'Редактировать город',
+            'update_item'       => 'Обновить город',
+            'add_new_item'      => 'Добавление города',
+            'new_item_name'     => 'Добавить новый',
+            'menu_name'         => 'Города',
+        ],
+        'description'           => '',
+        'public'                => true,
+        'hierarchical'          => false
     ]);
 });
 
@@ -152,3 +212,5 @@ add_shortcode('callie_single_review', function ($atts) {
             <footer class=\"blockquote-footer\">{$review->post_title}</footer>
         </blockquote>";
 });
+
+add_image_size('jobs-thumb', 440, 85, true);
