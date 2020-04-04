@@ -170,6 +170,29 @@ add_action('init', function () {
         'public'                => true,
         'hierarchical'          => false
     ]);
+
+    register_post_type('messages', [
+        'labels' => array(
+            'name'               => 'Сообщения',
+            'singular_name'      => 'Сообщение',
+            'add_new'            => 'Добавить новое',
+            'add_new_item'       => 'Добавление сообщения',
+            'edit_item'          => 'Редактирование сообщения',
+            'new_item'           => 'Новое сообщение',
+            'view_item'          => 'Смотреть сообщение',
+            'search_items'       => 'Искать сообщение',
+            'not_found'          => 'Не найдено',
+            'not_found_in_trash' => 'Не найдено в корзине',
+            'parent_item_colon'  => '',
+            'menu_name'          => 'Сообщения',
+        ),
+        'description'         => '',
+        'public'              => true,
+        'menu_position'       => 25,
+        'menu_icon'           => 'dashicons-email-alt2',
+        'hierarchical'        => false,
+        'supports'            => ['title', 'editor']
+    ]);
 });
 
 function callie_get_reviews($cnt = -1)
@@ -214,3 +237,41 @@ add_shortcode('callie_single_review', function ($atts) {
 });
 
 add_image_size('jobs-thumb', 440, 85, true);
+
+add_action('wp_footer', function () {
+    // Send backend vars to frontend
+    $vars = [
+        'templateUrl' => get_template_directory_uri(),
+        'ajaxUrl' => admin_url('admin-ajax.php')
+    ];
+
+    echo '<script>window.wp = ' . json_encode($vars) . '</script>';
+});
+
+add_action('wp_ajax_contactme', 'callie_ajax_contactme');
+add_action('wp_ajax_nopriv_contactme', 'callie_ajax_contactme');
+
+function callie_ajax_contactme()
+{
+    # TODO: save message (wp_insert_post)
+    // $post_data = array(
+    //     'post_type' => 'messages',
+    //     'post_title'    => $_POST['subject'],
+    //     'post_content'  => $_POST['message'],
+    //     'post_status'   => 'publish',
+    //     'meta_input'     => [
+    //         '???' => $_POST['name'],
+    //         '???' => $_POST['email']
+    //     ]
+    // );
+
+    // $post_id = wp_insert_post(wp_slash($post_data));
+
+    $res = [
+        'success' => true,
+        'errors' => []
+    ];
+
+    echo json_encode($res);
+    wp_die();
+}

@@ -1572,3 +1572,17 @@ footer .widget .contact li i {
 .jobs-single-header {
   padding-top: 40px;
 }
+
+/*=========================================================
+	  CONTACT FORM
+===========================================================*/
+
+#contactme-form {
+  display: inline-block;
+}
+
+#contactme-message {
+  display: none;
+  padding: 1rem;
+  border-radius: 10px;
+}
