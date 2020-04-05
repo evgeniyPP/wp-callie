@@ -1,7 +1,7 @@
 <footer id="footer">
     <!-- container -->
     <div class="container">
-        <?php get_sidebar('bottom'); ?>
+        <?php get_sidebar($sidebar_bottom ?? 'bottom'); ?>
 
         <!-- row -->
         <div class="footer-bottom row">
