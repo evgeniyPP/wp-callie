@@ -255,24 +255,37 @@ add_action('wp_ajax_nopriv_contactme', 'callie_ajax_contactme');
 
 function callie_ajax_contactme()
 {
-    # TODO: save message (wp_insert_post)
-    // $post_data = array(
-    //     'post_type' => 'messages',
-    //     'post_title'    => $_POST['subject'],
-    //     'post_content'  => $_POST['message'],
-    //     'post_status'   => 'publish',
-    //     'meta_input'     => [
-    //         '???' => $_POST['name'],
-    //         '???' => $_POST['email']
-    //     ]
-    // );
+    $sendTo = "eugene@wordpress.tut";
+    $name = htmlspecialchars(trim($_POST['name']));
+    $email = htmlspecialchars(trim($_POST['email']));
+    $subject = htmlspecialchars(trim($_POST['subject']));
+    $message = htmlspecialchars(trim($_POST['message']));
 
-    // $post_id = wp_insert_post(wp_slash($post_data));
+    if ($name == null || $email == null || $subject == null || $message == null) {
+        $res = [
+            'success' => false,
+            'errors' => ['Данные некорретны']
+        ];
+    } else {
+        $header =
+            "From: {$name} <{$email}>
+            Reply-To: {$email}
+            X-Mailer: PHP/" . phpversion();
 
-    $res = [
-        'success' => true,
-        'errors' => []
-    ];
+        $send = mail($sendTo, $subject, $message, $header);
+
+        if (!$send) {
+            $res = [
+                'success' => false,
+                'errors' => ['Ошибка при отправке']
+            ];
+        } else {
+            $res = [
+                'success' => true,
+                'errors' => []
+            ];
+        }
+    }
 
     echo json_encode($res);
     wp_die();
