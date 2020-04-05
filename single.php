@@ -13,7 +13,7 @@
                 <h1><?php the_title(); ?></h1>
                 <ul class="post-meta">
                     <li><?php the_author(); ?></li>
-                    <li><?php the_date(); ?></li>
+                    <li><?php echo get_the_date(); ?></li>
                     <li><i class="fa fa-comments"></i><?= get_comments_number() ?></li>
                     <!-- <li><i class="fa fa-eye"></i> 807</li> -->
                 </ul>

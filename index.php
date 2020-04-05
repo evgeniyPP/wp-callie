@@ -24,7 +24,7 @@
                                 </h3>
                                 <ul class="post-meta">
                                     <li><a href="author.html"><?php the_author(); ?></a></li>
-                                    <li><?php the_date(); ?></li>
+                                    <li><?php echo get_the_date(); ?></li>
                                 </ul>
                                 <p><?php echo CFS()->get('intro') ?></p>
                             </div>

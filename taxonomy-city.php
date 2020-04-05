@@ -33,7 +33,7 @@
                                 </h3>
                                 <ul class="post-meta">
                                     <li><?php echo CFS()->get('salary'); ?></li>
-                                    <li><?php the_date(); ?></li>
+                                    <li><?php echo get_the_date(); ?></li>
                                 </ul>
                                 <p></p>
                             </div>
