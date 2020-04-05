@@ -210,31 +210,33 @@ add_shortcode('callie_reviews', function ($atts) {
         'cnt' => 5
     ], $atts);
 
-    $layout = '';
+    $layout = [];
 
-    $reviews = callie_get_reviews($atts['cnt']);
+    $reviews = callie_get_reviews($atts['cnt'] ?? null);
 
     foreach ($reviews as $review) {
-
-        $layout .=
-            "<blockquote class=\"blockquote\">
-                <p>{$review->post_content}</p>
-                <footer class=\"blockquote-footer\">{$review->post_title}</footer>
-             </blockquote>";
+        ob_start();
+        include get_template_directory() . '/views/review.php';
+        $layout[] = ob_get_clean();
     }
 
-    return $layout;
+    return implode('', $layout);
 });
 
 add_shortcode('callie_single_review', function ($atts) {
     $review = get_post($atts['id']);
 
-    return
-        "<blockquote class=\"blockquote\">
-            <p>{$review->post_content}</p>
-            <footer class=\"blockquote-footer\">{$review->post_title}</footer>
-        </blockquote>";
+    ob_start();
+    include get_template_directory() . '/views/review.php';
+    return ob_get_clean();
 });
+
+add_shortcode('callie_contactme_form', function () {
+    ob_start();
+    include get_template_directory() . '/views/contactme-form.php';
+    return ob_get_clean();
+});
+
 
 add_image_size('jobs-thumb', 440, 85, true);
 

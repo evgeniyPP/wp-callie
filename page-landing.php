@@ -67,7 +67,7 @@
                         </section>
                         <section id="reviews">
                             <h2>Отзывы</h2>
-                            <?php get_template_part('views/reviews') ?>
+                            <?php echo do_shortcode('[callie_reviews]') ?>
                         </section>
                     </div>
                 </div>
