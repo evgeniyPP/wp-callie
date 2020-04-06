@@ -255,7 +255,6 @@ add_action('wp_ajax_nopriv_contactme', 'callie_ajax_contactme');
 
 function callie_ajax_contactme()
 {
-    $sendTo = "eugene@wordpress.tut";
     $name = htmlspecialchars(trim($_POST['name']));
     $email = htmlspecialchars(trim($_POST['email']));
     $subject = htmlspecialchars(trim($_POST['subject']));
@@ -267,17 +266,26 @@ function callie_ajax_contactme()
             'errors' => ['Данные некорретны']
         ];
     } else {
-        $header =
-            "From: {$name} <{$email}>
-            Reply-To: {$email}
-            X-Mailer: PHP/" . phpversion();
+        $post_data = array(
+            'post_type' => 'messages',
+            'post_title'    => $subject,
+            'post_content'  => $message,
+            'post_status'   => 'publish'
+        );
 
-        $send = mail($sendTo, $subject, $message, $header);
+        $new_post_id = wp_insert_post(wp_slash($post_data));
 
-        if (!$send) {
+        $new_post_id = CFS()->save([
+            'name' => $name,
+            'email' => $email
+        ], [
+            'ID' => $new_post_id
+        ]);
+
+        if (!$new_post_id) {
             $res = [
                 'success' => false,
-                'errors' => ['Ошибка при отправке']
+                'errors' => ['Ошибка при внесении в БД']
             ];
         } else {
             $res = [
