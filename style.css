@@ -1586,3 +1586,18 @@ footer .widget .contact li i {
   padding: 1rem;
   border-radius: 10px;
 }
+
+/*=========================================================
+	  ERROR 404
+===========================================================*/
+@media (max-width: 992px) {
+  .error404 h1 {
+    margin-bottom: 20vh;
+  }
+}
+
+@media (min-width: 992px) {
+  .error404 h1 {
+    margin-top: 20vh;
+  }
+}
