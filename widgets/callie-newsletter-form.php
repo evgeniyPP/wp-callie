@@ -16,12 +16,14 @@ class Callie_Widget_Newsletter_Form extends WP_Widget
     {
         $title = !empty($instance['title']) ? $instance['title'] : 'Newsletter';
         $subtitle = !empty($instance['subtitle']) ? $instance['subtitle'] : 'Nec feugiat nisl pretium fusce id velit ut tortor pretium.';
-        $shortcode = !empty($instance['shortcode']) ? $instance['shortcode'] : '';
+        $placeholder = !empty($instance['placeholder']) ? $instance['placeholder'] : 'Enter your email';
+        $button = !empty($instance['button']) ? $instance['button'] : 'Subscribe';
 
         /** This filter is documented in wp-includes/widgets/class-wp-widget-pages.php */
         $title = apply_filters('widget_title', $title, $instance, $this->id_base);
         $subtitle = apply_filters('widget_subtitle', $subtitle, $instance, $this->id_base);
-        $shortcode = apply_filters('widget_shortcode', $shortcode, $instance, $this->id_base);
+        $placeholder = apply_filters('widget_placeholder', $placeholder, $instance, $this->id_base);
+        $button = apply_filters('widget_button', $button, $instance, $this->id_base);
 
         echo $args['before_widget'];
 ?>
@@ -29,8 +31,12 @@ class Callie_Widget_Newsletter_Form extends WP_Widget
             <h2 class="title"><?php echo $args['before_title'] . $title . $args['after_title'] ?></h2>
         </div>
         <div class="newsletter-widget">
-            <p><?php echo $subtitle ?></p>
-            <?php echo do_shortcode($shortcode) ?>
+            <form id="newsletter-form">
+                <p><?php echo $subtitle ?></p>
+                <input class="input" name="newsletter" placeholder="<?php echo $placeholder ?>">
+                <button id="newsletter-btn" class="primary-button"><?php echo $button ?></button>
+                <p id="newsletter-message"></p>
+            </form>
         </div>
     <?php
         echo $args['after_widget'];
@@ -41,7 +47,8 @@ class Callie_Widget_Newsletter_Form extends WP_Widget
         $instance          = $old_instance;
         $instance['title'] = sanitize_text_field($new_instance['title']);
         $instance['subtitle'] = sanitize_text_field($new_instance['subtitle']);
-        $instance['shortcode'] = sanitize_text_field($new_instance['shortcode']);
+        $instance['placeholder'] = sanitize_text_field($new_instance['placeholder']);
+        $instance['button'] = sanitize_text_field($new_instance['button']);
 
         return $instance;
     }
@@ -51,7 +58,7 @@ class Callie_Widget_Newsletter_Form extends WP_Widget
     {
         $instance = wp_parse_args(
             (array) $instance,
-            ['title' => '', 'subtitle' => '', 'shortcode' => '']
+            ['title' => '', 'subtitle' => '', 'placeholder' => '', 'button' => '']
         );
     ?>
         <p>
@@ -64,9 +71,13 @@ class Callie_Widget_Newsletter_Form extends WP_Widget
             </label>
             <input class="widefat" id="<?php echo $this->get_field_id('subtitle'); ?>" name="<?php echo $this->get_field_name('subtitle'); ?>" type="text" value="<?php echo esc_attr($instance['subtitle']); ?>" />
             <label for="<?php echo $this->get_field_id('shortcode'); ?>">
-                <?php echo 'Шорткод на форму:' ?>
+                <?php echo 'Текст формы ввода:' ?>
             </label>
-            <input class="widefat" id="<?php echo $this->get_field_id('shortcode'); ?>" name="<?php echo $this->get_field_name('shortcode'); ?>" type="text" value="<?php echo esc_attr($instance['shortcode']); ?>" />
+            <input class="widefat" id="<?php echo $this->get_field_id('placeholder'); ?>" name="<?php echo $this->get_field_name('placeholder'); ?>" type="text" value="<?php echo esc_attr($instance['placeholder']); ?>" />
+            <label for="<?php echo $this->get_field_id('button'); ?>">
+                <?php echo 'Текст кнопки:' ?>
+            </label>
+            <input class="widefat" id="<?php echo $this->get_field_id('button'); ?>" name="<?php echo $this->get_field_name('button'); ?>" type="text" value="<?php echo esc_attr($instance['button']); ?>" />
         </p>
 <?php
     }
