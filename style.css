@@ -1311,6 +1311,12 @@ footer .widget .newsletter-widget:after {
   color: #323335;
 }
 
+#newsletter-message {
+  margin-top: 2rem;
+  margin-bottom: 0;
+  padding: 1rem 5px;
+}
+
 /*----------------------------*\
 	  category widget
   \*----------------------------*/
